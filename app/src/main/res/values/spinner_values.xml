@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="spinner_array">
+        <item>По количеству(убывание)</item>
+        <item>По количеству(возрастание)</item>
+        <item>В алфавитном порядке</item>
+    </array>
+</resources>
