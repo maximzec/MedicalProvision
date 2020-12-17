@@ -3,6 +3,7 @@ package com.app.drink.medicalprovision.Database;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -14,6 +15,9 @@ public interface CureDao {
     @Insert
     void insertCure(Cure cure);
 
-    @Query("UPDATE cure SET quantity = cure.quantity WHERE cureName == cure.cureName")
+    @Update
     void updateCure(Cure cure);
+
+    @Query("SELECT cureName FROM cure")
+    List<String> getCureName();
 }

@@ -33,12 +33,11 @@
     <EditText
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimary"
-        android:id="@+id/editText"
+        android:id="@+id/search"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Поиск!"
         android:inputType="textPersonName"
         android:textColorHint="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,12 +51,15 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/search" />
 
     <ListView
-        android:layout_width="409dp"
-        android:layout_height="543dp"
+        android:id="@+id/cureList"
+        android:layout_width="416dp"
+        android:layout_height="501dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" >
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
