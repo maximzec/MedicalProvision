@@ -5,6 +5,8 @@ import androidx.room.Room;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,32 @@ public class CureInfo extends AppCompatActivity {
             toast.show();
         }
 
+        Button add = findViewById(R.id.buttonAdd);
+        Button minus = findViewById(R.id.minus);
+        Button erase = findViewById(R.id.erase);
+
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = Integer.parseInt(cureQuantity.getText().toString());
+                count++;
+                cureQuantity.setText(count);
+                cure.quantity = count;
+                cureDatabase.cureDao().updateCure(cure);
+            }
+        });
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int count = Integer.parseInt(cureQuantity.getText().toString());
+                count--;
+                cureQuantity.setText(count);
+                cure.quantity = count;
+                cureDatabase.cureDao().updateCure(cure);
+            }
+        });
 
     }
 }
