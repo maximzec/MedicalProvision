@@ -8,12 +8,14 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Cure {
 
-    public Cure(@NonNull String cureName, String description, int quantity) {
+
+    public Cure(@NonNull String cureName, int quantity , String description) {
         this.cureName = cureName;
         this.description = description;
         this.quantity = quantity;
     }
 
+    @ColumnInfo(name = "cureName")
     @PrimaryKey
     @NonNull
     public String cureName;

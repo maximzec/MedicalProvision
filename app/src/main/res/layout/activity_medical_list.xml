@@ -46,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/listHeader" />
 
     <Spinner
+
         android:id="@+id/spinner"
         android:layout_width="409dp"
         android:layout_height="wrap_content"

@@ -29,8 +29,11 @@ public class MedicalList extends AppCompatActivity {
     ListView cureListView;
     EditText search;
     ArrayAdapter<String> cureAdapter;
-    String[] names = { "Иван", "Марья", "Петр", "Антон", "Даша", "Борис",
-            "Костя", "Игорь", "Анна", "Денис", "Андрей" };
+    CureDatabase cureDatabase;
+    String[] names = {  };
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,24 +41,13 @@ public class MedicalList extends AppCompatActivity {
         search = findViewById(R.id.search);
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_array, android.R.layout.simple_spinner_item);
+                R.array.spinner_array, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        final CureDatabase cureDatabase = Room.databaseBuilder(getApplicationContext() , CureDatabase.class , "cure").build();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                  cureNamesList  =  cureDatabase.cureDao().getCureName();
-                }catch (Exception e){
-                    Toast toast = Toast.makeText(getApplicationContext(),"Что-то пошло не так", Toast.LENGTH_SHORT );
-                    toast.show();
-                }
-            }
-        });
+        cureDatabase = Room.databaseBuilder(getApplicationContext() , CureDatabase.class , "cure").allowMainThreadQueries().build();
+        cureNamesList  =  cureDatabase.cureDao().getCureName();
         cureListView = findViewById(R.id.cureList);
-        cureAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, names);
+        cureAdapter = new ArrayAdapter<>(this, R.layout.list_white_text, R.id.list_content, cureNamesList);
         cureListView.setAdapter(cureAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -90,12 +82,12 @@ public class MedicalList extends AppCompatActivity {
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                MedicalList.this.cureAdapter.getFilter().filter(s);
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                MedicalList.this.cureAdapter.getFilter().filter(s);
             }
 
             @Override
@@ -111,5 +103,22 @@ public class MedicalList extends AppCompatActivity {
                 MedicalList.this.startActivity(intent);
             }
         });
+
+        cureListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCure = (String) cureListView.getItemAtPosition(position);
+                Intent intent = new Intent(MedicalList.this, CureInfo.class);
+                intent.putExtra("selectedCure" , selectedCure);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
+
+
+
+
 }

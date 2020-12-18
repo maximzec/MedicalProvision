@@ -27,17 +27,19 @@ public class AddingCure extends AppCompatActivity {
 
         Button addCure = findViewById(R.id.addCure);
         addCure.setOnClickListener(new View.OnClickListener() {
+            Cure cure;
             @Override
             public void onClick(View v) {
+
                 if(editName.getText().length() == 0){
                     Toast toast = Toast.makeText(getApplicationContext(), "Имя обязательно!" , Toast.LENGTH_LONG);
                     toast.show();
                 }else{
-                    final Cure cure = new Cure(editName.getEditableText().toString(), editDescription.getEditableText().toString(), Integer.parseInt(editQuantity.getEditableText().toString()));
                     AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
                             try {
+                                cure = new Cure(editName.getEditableText().toString(), Integer.parseInt(editQuantity.getEditableText().toString()) , editDescription.getEditableText().toString());
                                 cureDatabase.cureDao().insertCure(cure);
                             }catch (Exception e){
                                 Toast toast = Toast.makeText(getApplicationContext(), "Упс! Что-то пошло не так", Toast.LENGTH_SHORT);

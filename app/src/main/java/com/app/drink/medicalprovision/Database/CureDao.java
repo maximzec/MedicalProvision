@@ -1,7 +1,9 @@
 package com.app.drink.medicalprovision.Database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -12,7 +14,7 @@ public interface CureDao {
     @Query("SELECT * FROM cure")
     List<Cure> getAll();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCure(Cure cure);
 
     @Update
@@ -20,4 +22,7 @@ public interface CureDao {
 
     @Query("SELECT cureName FROM cure")
     List<String> getCureName();
+
+    @Query("SELECT * FROM cure WHERE cureName = :cureNameSearching")
+    Cure getCureByName(String cureNameSearching);
 }
